@@ -1,6 +1,8 @@
-
 #define GLFW_INCLUDE_GLU
 #include <GLFW/glfw3.h>
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
 
 int main(void)
 {
@@ -23,6 +25,23 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsLight();
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+
+    ImGui_ImplOpenGL3_Init();
+
+    bool draw_window = false;
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -36,9 +55,23 @@ int main(void)
 
         glViewport(0, 0, width, height);
 
+        if(ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Insert)))
+            draw_window = !draw_window;
+
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        if(draw_window)
+            ImGui::ShowDemoWindow();
+        // Rendering
+        ImGui::Render();
+
         // Clear color buffer to black
         glClearColor(0.f, 0.f, 0.f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT);
+
 
         // Select and setup the projection matrix
         glMatrixMode(GL_PROJECTION);
@@ -65,6 +98,8 @@ int main(void)
         glVertex3f(0.f, 0.f, 6.f);
         glEnd();
 
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         // Swap buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -74,6 +109,13 @@ int main(void)
             break;
 
     }
+
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    glfwDestroyWindow(window);
 
     glfwTerminate();
     return 0;
