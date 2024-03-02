@@ -1,54 +1,35 @@
-#define GLFW_INCLUDE_GLU
-#include <GLFW/glfw3.h>
-#include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include "basics/camera.h"
+#include "utils/Window.h"
+#include "utils/common.h"
+
+float vertices[] = {
+        // x    y     z     u     v
+        -1.0f,-1.0f, 0.0f, 0.0f, 0.0f,
+        1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
+        -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+
+        1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+};
 
 int main(void)
 {
     int width, height, x;
 
-    GLFWwindow* window;
+    Window::initialize(640, 480, "Hello World!");
+    utils::common::InitImGui(Window::window);
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
-
-    // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-
-    ImGui_ImplOpenGL3_Init();
 
     bool draw_window = false;
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(Window::window))
     {
         double t = glfwGetTime();
 
         // Get window size (may be different than the requested size)
-        glfwGetWindowSize(window, &width, &height);
+        glfwGetWindowSize(Window::window, &width, &height);
 
         // Special case: avoid division by zero below
         height = height > 0 ? height : 1;
@@ -101,11 +82,11 @@ int main(void)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         // Swap buffers
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(Window::window);
         glfwPollEvents();
 
         // Check if the ESC key was pressed or the window should be closed
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE))
+        if (glfwGetKey(Window::window, GLFW_KEY_ESCAPE))
             break;
 
     }
@@ -115,7 +96,7 @@ int main(void)
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(Window::window);
 
     glfwTerminate();
     return 0;

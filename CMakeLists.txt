@@ -24,7 +24,12 @@ list(REMOVE_ITEM IMGUI_SOURCES ${IMGUI_PATH}/backends/imgui_impl_wgpu.cpp)
 list(REMOVE_ITEM IMGUI_SOURCES ${IMGUI_PATH}/backends/imgui_impl_win32.cpp)
 
 
-add_library("ImGui" STATIC ${IMGUI_SOURCES})
+add_library("ImGui" STATIC ${IMGUI_SOURCES}
+        pch/pch.h
+        utils/Window.cpp
+        utils/Window.h
+        utils/common.h
+        utils/common.cpp)
 target_include_directories("ImGui" PUBLIC ${IMGUI_PATH})
 
 
@@ -35,7 +40,12 @@ include_directories(
 
 link_libraries(${GLEW_LIBRARIES})
 
-add_executable(opengl_engine main.cpp )
+add_executable(opengl_engine main.cpp
+        basics/camera.cpp
+        basics/camera.h
+        pch/pch.h)
 target_link_libraries (opengl_engine
         ${OPENGL_LIBRARIES}
         ${GLFW3_LIBRARY} glfw ImGui)
+
+target_precompile_headers(opengl_engine PRIVATE pch/pch.h)
