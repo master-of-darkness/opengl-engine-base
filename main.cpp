@@ -18,7 +18,7 @@ int main(void)
     int width, height, x;
 
     Window::initialize(640, 480, "Hello World!");
-    utils::common::InitImGui(Window::window);
+    utils::common::imgui::InitImGui(Window::window);
 
 
     bool draw_window = false;
@@ -39,13 +39,11 @@ int main(void)
         if(ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Insert)))
             draw_window = !draw_window;
 
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        utils::common::imgui::PrepareNewFrame();
 
         if(draw_window)
             ImGui::ShowDemoWindow();
+
         // Rendering
         ImGui::Render();
 
