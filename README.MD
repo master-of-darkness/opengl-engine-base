@@ -9,5 +9,6 @@ Small project to research working with 3D graphics
 - [ ] Refactor code
     - [ ] ImGui interface with debug information
     - [ ] Main Loop
+- [ ] Shaders
 
 ### Completed Tasks ✓
