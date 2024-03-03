@@ -1,7 +1,7 @@
 #include "common.h"
 using namespace utils::common;
 
-void imgui::InitImGui(GLFWwindow *window) {
+void imgui::Init(GLFWwindow *window) {
     if(window == nullptr)
         return;
 
@@ -25,4 +25,10 @@ void imgui::PrepareNewFrame() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+}
+
+void imgui::Destroy() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }

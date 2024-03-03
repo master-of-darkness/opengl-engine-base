@@ -1,9 +1,11 @@
 //Pre-compiled headers
 #include <iostream>
-
+#include <fstream>
+#include <sstream>
 
 #define GLFW_INCLUDE_GLU
 // OpenGL, GLFW, GLM
+#include <GLES3/gl32.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/geometric.hpp>
