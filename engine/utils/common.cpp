@@ -1,5 +1,9 @@
 #include "common.h"
+#include "Window.h"
+
 using namespace cppzt::utils::common;
+
+static bool key_pressed = true;
 
 void imgui::Init(GLFWwindow *window) {
     if(window == nullptr)
@@ -39,4 +43,20 @@ void imgui::DebugWindow(){
         ImGui::Text("Framerate: %f", ImGui::GetIO().Framerate);
     }
     ImGui::End();
+}
+
+bool event::keyboard::IsPressed(int key) {
+    bool check = glfwGetKey(utils::Window::window, key);
+
+    if(check == GLFW_PRESS && key_pressed){
+        return false;
+    }else if(check == GLFW_PRESS){
+        key_pressed = true;
+        return true;
+    }else if(check == GLFW_RELEASE && !key_pressed){
+        return false;
+    }else if(check == GLFW_RELEASE){
+        key_pressed = false;
+        return false;
+    }
 }

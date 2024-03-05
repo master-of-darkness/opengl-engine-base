@@ -18,10 +18,11 @@ float vertices[] = {
 
 int main(void)
 {
-    utils::Window::Init(640, 480, "Hello World!");
+    if(utils::Window::Init(640, 480, "Hello World!") != 0){
+        glfwTerminate();
+    }
     utils::common::imgui::Init(utils::Window::window);
-    utils::Shader base("../basics/shader/basicShader.vert", "../basics/shader/basicShader.frag");
-
+    utils::Shader base("../engine/basics/shader/basicShader.vert", "../engine/basics/shader/basicShader.frag");
     GLuint VAO, VBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -36,7 +37,6 @@ int main(void)
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
-
     basics::Camera* camera = new basics::Camera(glm::vec3(0,0,1), glm::radians(90.0f));
     glm::mat4 model(1.0f);
     model = translate(model, glm::vec3(0.5f,0,0));
@@ -46,10 +46,11 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(utils::Window::window))
     {
+
         glfwPollEvents();
 
         glfwGetWindowSize(utils::Window::window, &utils::Window::width, &utils::Window::height);
-        if(ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Insert)))
+        if(utils::common::event::keyboard::IsPressed(GLFW_KEY_INSERT))
             draw_window = !draw_window;
 
         utils::common::imgui::PrepareNewFrame();
@@ -59,7 +60,6 @@ int main(void)
         ImGui::Render();
 
         glClear(GL_COLOR_BUFFER_BIT);
-
 
         base.use();
         base.uniformMatrix("model", model);

@@ -6,9 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 find_package (OpenGL REQUIRED)
 find_package (glfw3 REQUIRED)
 find_package (GLEW REQUIRED)
+find_package (spdlog REQUIRED)
 
 # Set where the ImGui files are stored
-set(IMGUI_PATH ${PROJECT_SOURCE_DIR}/dependencies/imgui)
+set(IMGUI_PATH ${PROJECT_SOURCE_DIR}/engine/dependencies/imgui)
 
 # Compile as static library
 file(GLOB IMGUI_SOURCES ${IMGUI_PATH}/*.cpp ${IMGUI_PATH}/backends/*.cpp)
@@ -28,28 +29,23 @@ add_library("ImGui" STATIC ${IMGUI_SOURCES})
 target_include_directories("ImGui" PUBLIC ${IMGUI_PATH})
 
 
-
 include_directories(
         ${GLFW_INCLUDE_DIRS}
-        ${GLEW_INCLUDE_DIRS})
+        ${GLEW_INCLUDE_DIRS}
+        ${PROJECT_SOURCE_DIR}/engine)
 
 link_libraries(${GLEW_LIBRARIES})
 
 add_executable(opengl_engine main.cpp
-        pch/pch.h
-        utils/Window.cpp
-        utils/Window.h
-        utils/common.h
-        utils/common.cpp
-        utils/Shader.cpp
-        utils/Shader.h
-        basics/camera/Camera.cpp
-        basics/camera/Camera.h
-        utils/Texture.cpp
-        utils/Texture.h)
+        engine/basics/camera/Camera.cpp
+        engine/utils/common.cpp
+        engine/utils/Shader.cpp
+        engine/utils/Texture.cpp
+        engine/utils/Texture.h
+        engine/utils/Window.cpp)
 
 target_link_libraries (opengl_engine
         ${OPENGL_LIBRARIES}
-        ${GLFW3_LIBRARY} glfw ImGui)
+        ${GLFW3_LIBRARY} glfw ImGui spdlog::spdlog_header_only)
 
-target_precompile_headers(opengl_engine PRIVATE pch/pch.h)
+target_precompile_headers(opengl_engine PRIVATE engine/pch/pch.h)

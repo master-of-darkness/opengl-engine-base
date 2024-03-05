@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdio.h>
+#include <spdlog/spdlog.h>
 
 #define GLFW_INCLUDE_GLU
 // OpenGL, GLFW, GLM
@@ -11,7 +13,6 @@
 #include <glm/geometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 // ImGui
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"

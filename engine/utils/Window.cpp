@@ -7,10 +7,13 @@ int Window::height = 0;
 
 int Window::Init(int width, int height, const char* title){
     /* Initialize the library */
-    if (!glfwInit())
+    if (!glfwInit()){
+        spdlog::error("Failed to initialize GLFW; Terminating!");
         return -1;
+    }
 
-    std::cout<<glGetString(GL_VERSION)<<"\n";
+
+    spdlog::info("Running GLFW {}", glfwGetVersionString());
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
