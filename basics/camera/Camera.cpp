@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "../../utils/Window.h"
+using namespace cppzt::basics;
 
 Camera::Camera(glm::vec3 position, float fov) : position(position), fov(fov), rotation(1.0f){
     updateVectors();
@@ -25,7 +26,7 @@ void Camera::rotate(float x, float y, float z){
 
 glm::mat4 Camera::getProjection(){
 
-    float aspect = (float)Window::width / (float)Window::height;
+    float aspect = (float)cppzt::utils::Window::width / (float)cppzt::utils::Window::height;
     return glm::perspective(fov, aspect, 0.1f, 100.0f);
 }
 

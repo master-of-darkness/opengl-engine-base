@@ -1,7 +1,8 @@
 #include "../pch/pch.h"
 
-namespace utils::common::imgui {
+namespace cppzt::utils::common::imgui {
     void Init(GLFWwindow* window);
     void PrepareNewFrame();
     void Destroy();
+    void DebugWindow();
 }

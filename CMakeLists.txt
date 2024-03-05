@@ -44,7 +44,9 @@ add_executable(opengl_engine main.cpp
         utils/Shader.cpp
         utils/Shader.h
         basics/camera/Camera.cpp
-        basics/camera/Camera.h)
+        basics/camera/Camera.h
+        utils/Texture.cpp
+        utils/Texture.h)
 
 target_link_libraries (opengl_engine
         ${OPENGL_LIBRARIES}

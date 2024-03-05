@@ -4,6 +4,7 @@
 #include "../pch/pch.h"
 
 #include "Shader.h"
+using namespace cppzt::utils;
 
 Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
     // 1. retrieve the vertex/fragment source code from filePath

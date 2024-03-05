@@ -1,5 +1,5 @@
 #include "common.h"
-using namespace utils::common;
+using namespace cppzt::utils::common;
 
 void imgui::Init(GLFWwindow *window) {
     if(window == nullptr)
@@ -31,4 +31,8 @@ void imgui::Destroy() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+void imgui::DebugWindow(){
+    // TODO
 }

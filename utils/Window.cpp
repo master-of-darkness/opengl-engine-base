@@ -1,5 +1,5 @@
 #include "Window.h"
-
+using namespace cppzt::utils;
 GLFWwindow* Window::window;
 
 int Window::width = 0;

@@ -4,7 +4,7 @@
 #include "utils/common.h"
 #include "utils/Shader.h"
 #include "basics/camera/Camera.h"
-
+using namespace cppzt;
 float vertices[] = {
         // x    y     z     u     v
         -1.0f,-1.0f, 0.0f, 0.0f, 0.0f,
@@ -18,9 +18,9 @@ float vertices[] = {
 
 int main(void)
 {
-    Window::Init(640, 480, "Hello World!");
-    utils::common::imgui::Init(Window::window);
-    Shader base("../basics/shader/basicShader.vert", "../basics/shader/basicShader.frag");
+    utils::Window::Init(640, 480, "Hello World!");
+    utils::common::imgui::Init(utils::Window::window);
+    utils::Shader base("../basics/shader/basicShader.vert", "../basics/shader/basicShader.frag");
 
     GLuint VAO, VBO;
     glGenVertexArrays(1, &VAO);
@@ -37,18 +37,18 @@ int main(void)
 
     glBindVertexArray(0);
 
-    Camera* camera = new Camera(glm::vec3(0,0,1), glm::radians(90.0f));
+    basics::Camera* camera = new basics::Camera(glm::vec3(0,0,1), glm::radians(90.0f));
     glm::mat4 model(1.0f);
     model = translate(model, glm::vec3(0.5f,0,0));
 
     bool draw_window = false;
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(Window::window))
+    while (!glfwWindowShouldClose(utils::Window::window))
     {
         glfwPollEvents();
 
-        glfwGetWindowSize(Window::window, &Window::width, &Window::height);
+        glfwGetWindowSize(utils::Window::window, &utils::Window::width, &utils::Window::height);
         if(ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Insert)))
             draw_window = !draw_window;
 
@@ -65,14 +65,17 @@ int main(void)
         base.uniformMatrix("model", model);
         base.uniformMatrix("projview", camera->getProjection()*camera->getView());
 
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindVertexArray(0);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         // Swap buffers
-        glfwSwapBuffers(Window::window);
+        glfwSwapBuffers(utils::Window::window);
 
         // Check if the ESC key was pressed or the window should be closed
-        if (glfwGetKey(Window::window, GLFW_KEY_ESCAPE))
+        if (glfwGetKey(utils::Window::window, GLFW_KEY_ESCAPE))
             break;
 
     }
@@ -82,7 +85,7 @@ int main(void)
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     utils::common::imgui::Destroy();
-    glfwDestroyWindow(Window::window);
+    glfwDestroyWindow(utils::Window::window);
 
     glfwTerminate();
     return 0;
