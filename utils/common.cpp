@@ -34,5 +34,9 @@ void imgui::Destroy() {
 }
 
 void imgui::DebugWindow(){
-    // TODO
+    ImGui::Begin("Debug Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus);
+    {
+        ImGui::Text("Framerate: %f", ImGui::GetIO().Framerate);
+    }
+    ImGui::End();
 }

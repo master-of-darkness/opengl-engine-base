@@ -7,7 +7,7 @@ Small project to research working with 3D graphics
 
 ### In Progress
 - [ ] Refactor code
-    - [ ] ImGui interface with debug information
+    - [✓] ImGui interface with debug information
     - [ ] Main Loop
 
 ### Completed Tasks ✓

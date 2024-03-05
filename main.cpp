@@ -54,7 +54,7 @@ int main(void)
 
         utils::common::imgui::PrepareNewFrame();
         if(draw_window)
-            ImGui::ShowDemoWindow();
+            utils::common::imgui::DebugWindow();
         // Rendering
         ImGui::Render();
 
