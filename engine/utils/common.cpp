@@ -37,12 +37,15 @@ void imgui::Destroy() {
     ImGui::DestroyContext();
 }
 
-void imgui::DebugWindow(){
-    ImGui::Begin("Debug Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus);
-    {
-        ImGui::Text("Framerate: %f", ImGui::GetIO().Framerate);
+void imgui::DebugWindow(bool a1){
+    if(a1){
+        ImGui::Begin("Debug Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus);
+        {
+            ImGui::Text("Framerate: %f", ImGui::GetIO().Framerate);
+        }
+        ImGui::End();
     }
-    ImGui::End();
+    ImGui::Render();
 }
 
 bool event::keyboard::IsPressed(int key) {

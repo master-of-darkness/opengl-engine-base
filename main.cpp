@@ -1,9 +1,10 @@
-#include "pch/pch.h"
+#include "engine/pch/pch.h"
 
-#include "utils/Window.h"
-#include "utils/common.h"
-#include "utils/Shader.h"
-#include "basics/camera/Camera.h"
+#include "engine/utils/Window.h"
+#include "engine/utils/common.h"
+#include "engine/utils/Shader.h"
+#include "engine/basics/camera/Camera.h"
+
 using namespace cppzt;
 float vertices[] = {
         // x    y     z     u     v
@@ -54,10 +55,7 @@ int main(void)
             draw_window = !draw_window;
 
         utils::common::imgui::PrepareNewFrame();
-        if(draw_window)
-            utils::common::imgui::DebugWindow();
-        // Rendering
-        ImGui::Render();
+        utils::common::imgui::DebugWindow(draw_window);
 
         glClear(GL_COLOR_BUFFER_BIT);
 

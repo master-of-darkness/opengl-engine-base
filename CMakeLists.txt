@@ -37,12 +37,16 @@ include_directories(
 link_libraries(${GLEW_LIBRARIES})
 
 add_executable(opengl_engine main.cpp
-        engine/basics/camera/Camera.cpp
+        engine/basics/camera/Camera.cpp # engine files start
+        engine/basics/camera/Camera.h
         engine/utils/common.cpp
+        engine/utils/common.h
         engine/utils/Shader.cpp
+        engine/utils/Shader.h
         engine/utils/Texture.cpp
         engine/utils/Texture.h
-        engine/utils/Window.cpp)
+        engine/utils/Window.cpp
+        engine/utils/Window.h) # engine files end
 
 target_link_libraries (opengl_engine
         ${OPENGL_LIBRARIES}

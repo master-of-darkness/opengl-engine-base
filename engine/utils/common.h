@@ -5,7 +5,7 @@ namespace cppzt::utils::common {
         void Init(GLFWwindow* window);
         void PrepareNewFrame();
         void Destroy();
-        void DebugWindow();
+        void DebugWindow(bool a1);
     }
     namespace event{
         namespace keyboard{
