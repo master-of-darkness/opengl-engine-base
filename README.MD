@@ -3,7 +3,6 @@
 Small project to research working with 3D graphics
 
 ### To Do
-- [ ] Add camera system
 
 ### In Progress
 - [ ] Refactor code
@@ -12,3 +11,5 @@ Small project to research working with 3D graphics
 
 ### Completed Tasks ✓
 - [✓] Shaders
+- [✓] Camera system
+
